@@ -5,11 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="./assets/css/styles.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
     <title>This is a landing page</title>
 </head>
-<body>
-    <header>"Who's That Pokemon?"</header>
-    <button>PLAY NOW</button>
+<body class="container w-screen">
+    <header class="bg-red-700 text-white text-5xl h-48 w-screen text-center p-16 w-full">
+        <h1 id="landing-title" class="custom-landing">Who's That Pokemon!?</h1>
+    </header>  
+    <div class="flex flex-col items-center w-screen">
+        <button class="bg-white text-black font-medium rounded-full border-black border-4 h-32 w-32" id="startButton">PLAY NOW</button>
+    </div>
+    <script src="assets/js/landing.js"></script>
 </body>
 </html>

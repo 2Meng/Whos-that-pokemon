@@ -51,3 +51,4 @@ function loadPokemon() {
 
 
 loadPokemon()
+console.log('hello')

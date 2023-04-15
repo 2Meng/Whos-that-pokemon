@@ -1,0 +1,18 @@
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    transform: translateY(-80px);
+    opacity: 0;
+    transition: all 1s ease-in;
+}
+
+
+.movement {
+    opacity: 1;
+    transform: translateY(0px);
+}
+
+#mainHeadText {
+    font-family: 'Press Start 2P', cursive;
+    opacity: 1;
+    transform: translateY(0px)
+}

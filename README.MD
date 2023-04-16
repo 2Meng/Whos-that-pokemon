@@ -46,6 +46,9 @@ https://icanhazdadjoke.com/api
 Tailwind setup:
 https://tailwindcss.com/docs/installation
 
+Pokéball photo:
+https://www.freepnglogos.com/images/pokeball-16848.html
+
 
 
 ## License

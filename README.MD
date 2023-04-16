@@ -49,6 +49,9 @@ https://tailwindcss.com/docs/installation
 Pokéball photo:
 https://www.freepnglogos.com/images/pokeball-16848.html
 
+Marquee:
+https://way2tutorial.com/html/html_marquee_image.php
+
 
 
 ## License

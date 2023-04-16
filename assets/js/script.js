@@ -6,7 +6,9 @@ var pokemonWeight = document.getElementById('weight');
 var pokemonType = document.getElementById('type');
 
 // in-game UI // 
+var userHP = document.getElementById('user-health');
 var blankWordSpace = document.getElementById('letters-blanks');
+var incorrectLettersEl = document.getElementById('incorrect-letters')
 var playerMessage = document.getElementById('player-message');
 var displayHintBtn = document.getElementById('display-hint');
 var hintMessage = document.getElementById('hint');
@@ -29,10 +31,15 @@ var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
 var timerCount;
+var healthPoints = 50;
+var incorrectKeyGuesses = 0;
 
 // Displays blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
+var incorrectLetters = [];
+
+userHP.textContent = 'Player HP: ' + healthPoints + 'HP';
 
 
 //returns a random number with value 0-x
@@ -59,8 +66,11 @@ function loadPokemon() {
         // to set color to black and white
         // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
         randomPokemon.appendChild(pokeIMG)
+
+        
         console.log(data)
-        //console.log(pokemonName)
+        console.log(pokemonName)
+        //console.log(data.location_area_encounters)
         renderBlanks(pokemonName)
     })
     .catch(function(error){
@@ -97,6 +107,32 @@ function checksLetters(letters){
             }
         }
         blankWordSpace.textContent = blankLetters.join(' ');
+
+        if(blankLetters.join('') === gameBlanks){
+            playerMessage.textContent = 'Congrats! Its ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '!';
+            scoreCounter ++;
+            setTimeout(nextPokemon, 1500);
+        }
+
+    } 
+    if (!letterInWord) {
+        guessPokemon.push(letters);
+        incorrectLetters.push(letters);
+        playerMessage.textContent = 'Oops! Looks like that letter isnt in the Pokemons name! Try Again!';
+        incorrectLettersEl.textContent = incorrectLetters.join(', ');
+
+        setTimeout(function(){
+            playerMessage.textContent = '';
+        },1250);
+
+        if (guessPokemon.length === 10) {
+            playerMessage.textContent = 'Oh no! The Pokemons name was.. ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '! Try again!';
+            setTimeout(nextPokemon, 2000);
+        }
+
+        // Counts the number of incorrect characters guessed //
+        incorrectKeyGuesses = incorrectLetters.length;
+        console.log(incorrectKeyGuesses)
     }
 };
 
@@ -104,20 +140,42 @@ function checksLetters(letters){
 document.addEventListener('keydown', function(event){
     // Converts the keys pressed to lower case letters //
     var key = event.key.toLowerCase();
-    var alphabetCharacters = 'abcdefghijklmnopqrstuvwxyz'.split('');
+    var availableCharacters = 'abcdefghijklmnopqrstuvwxyz123456789-'.split('');
     
     // If statement for letters pushed //
 
-    if(alphabetCharacters.includes(key)){
+    if(availableCharacters.includes(key)){
         var pressedLetter = event.key;
         checksLetters(pressedLetter)
     }
-    console.log('yes')
-
 });
 
+function nextPokemon(){
+    // Resets game elements // 
+    randomPokemon.innerHTML = '';
+    blankWordSpace.textContent = '';
+    playerMessage.textContent = '';
+    guessPokemon = [];
+    incorrectLettersEl.textContent = '';
+    incorrectLetters = [];
+    loadPokemon()
 
+    // Subtracts the number of incorrect key characters pressed //
+    handleUserHP()
+}
 
+function handleUserHP(){
+    healthPoints -= incorrectKeyGuesses
+    
+    userHP.textContent = 'Player HP: ' + healthPoints + 'HP'
+    userHP.style.width = healthPoints + '%';
+
+    // Should reset guesses //
+    incorrectKeyGuesses = 0
+    if (healthPoints <= 0){
+        playerMessage.textContent = 'GAME OVER'
+    }
+}
 
 loadPokemon()
 

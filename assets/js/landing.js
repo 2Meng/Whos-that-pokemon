@@ -1,3 +1,4 @@
+
 var startButton = document.getElementById('startButton')
 var landingTitle = document.getElementById("landing-title")
 var redirectUrl = '.'
@@ -12,7 +13,7 @@ setInterval(function () {
     landingTitle.setAttribute("class", 'movement')
 }, 100)
 
-
+window.onload = function() {}
 // Function to call pokemon images and display in a scrolling banner. 
 function fetchPokemon() {
     for (let i = 1; i < 151; i++) {
@@ -28,5 +29,6 @@ function fetchPokemon() {
             })
     }
 }
-
+window.onload = function() {
 fetchPokemon();
+}

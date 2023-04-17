@@ -15,7 +15,7 @@ setInterval(function () {
 
 // Function to call pokemon images and display in a scrolling banner. 
 function fetchPokemon() {
-    for (let i = 1; i < 152; i++) {
+    for (let i = 1; i < 151; i++) {
         var pokemonApiPics = pokemonApi + i;
         fetch(pokemonApiPics)
             .then(function (response) {

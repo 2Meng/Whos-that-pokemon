@@ -6,7 +6,7 @@ var pokemonWeight = document.getElementById('weight');
 var pokemonType = document.getElementById('type');
 
 // in-game UI // 
-var userHP = document.getElementById('user-health');
+var userHP = document.getElementById('user-health-points');
 var blankWordSpace = document.getElementById('letters-blanks');
 var incorrectLettersEl = document.getElementById('incorrect-letters')
 var playerMessage = document.getElementById('player-message');

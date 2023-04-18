@@ -42,6 +42,8 @@ var isLoadingPokemon = false;
 var scoreArray = [];
 
 
+// Variables from Local Storage //
+var difficulty = localStorage.getItem("difficulty")
 // Displays blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
@@ -67,20 +69,7 @@ function randomNumGen(x) {
 // Load Data from Pokemon API. Get Sprite, Get type? Get Evolution?
 // currently creates an Image Element and attaches it to an element in the document name tempId
 function loadPokemon() {
-    if (isLoadingPokemon){
-        // Checks if a request has been made - if so then will not request more than once //
-        return;
-    }
-
-    isLoadingPokemon = true;
-    
-    var pokemonGeneration = randomNumGen(151);
-    while (previousGuessedPokemon.includes(pokemonGeneration) || pokemonGeneration === 0) {
-        pokemonGeneration = randomNumGen(151);
-    }
-    previousGuessedPokemon.push(pokemonGeneration);
-    console.log(previousGuessedPokemon)
-
+    var pokemonGeneration = randomNumGen(151)
     fetch(pokemonApi + pokemonGeneration) 
         // Add a number to the end of this to load a specific pokemon. use random number for random pokemon. 
 
@@ -93,8 +82,8 @@ function loadPokemon() {
         var pokeIMG = document.createElement('img')
         pokeIMG.src = data.sprites.front_default
 
-        // To set color to black and white
-        pokeIMG.setAttribute('class', 'constrast-200, brightness-0')
+        // to set color to black and white
+        // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
         randomPokemon.appendChild(pokeIMG)
         isLoadingPokemon = false;
         

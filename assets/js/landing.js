@@ -88,7 +88,8 @@ function fetchPokemon() {
                 pokemonScrollDisplay.appendChild(pokeImg)
             })
     }
-}
+} 
+
 
 init()
 window.onload = function() {

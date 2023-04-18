@@ -28,12 +28,15 @@
           <span id="type"></span>
       </section>
 
-      <section id="ingame-ui" class="flex flex-col justify-content items-center">
+      <section id="ingame-ui" class="flex flex-row place-content-center items-center  w-screen mt-8">
         
         <!-- GAME SECTION -->
         <section id="game">
           <!-- USER HP -->
-        <div id="user-health-points" class="p-1.5"></div>
+          <div id="health-text"></div>
+          <div id="health-bar">
+            <div id="user-health-points" class="p-1.5"></div>
+          </div>
           <!-- Displays pokemon -->
         <div id="display-pokemon" class="p-1.5">
             <span id="guess-the-pokemon" class="p-1"></span>
@@ -44,7 +47,7 @@
         </div>
           <!-- Message to player for correct and incorrect guesses -->
         <div>
-          <span id="player-message" class="p-2"></span>
+          <span id="player-message" class="p-"></span>
         </div>
         <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
           <!-- Timer -->

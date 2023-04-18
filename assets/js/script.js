@@ -10,6 +10,7 @@ var pokemonName = '';
 var ingameUI = document.getElementById('ingame-ui');
 var actualGame = document.getElementById('game');
 var userHP = document.getElementById('user-health-points');
+var healthText = document.getElementById('health-text');
 var blankWordSpace = document.getElementById('letters-blanks');
 var incorrectLettersEl = document.getElementById('incorrect-letters')
 var playerMessage = document.getElementById('player-message');
@@ -31,7 +32,7 @@ var gameBlanks = '';
 var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
-var timerCount = 30;
+var timerCount = 999999;
 var healthPoints;
 var incorrectKeyGuesses = 0;
 var previousGuessedPokemon = [];
@@ -196,7 +197,10 @@ function nextPokemon(){
 function handleUserHP(){
     // Subtracts points from user HP per incorrect key guesses //
     healthPoints -= incorrectKeyGuesses
-    userHP.textContent = 'Player HP: ' + healthPoints + 'HP'
+    var maxHealth = 100;
+    var healthPercentage = Math.max(0, healthPoints) / maxHealth
+    healthText.textContent = 'Player HP: ' + healthPoints + 'HP'
+    userHP.style.width = (healthPercentage * 100) + '%';
 
     // Should reset guesses //
     incorrectKeyGuesses = 0
@@ -217,6 +221,10 @@ function clockTimer (){
         }
     }, 1000);
 }
+
+displayHintBtn.addEventListener('click', function (){
+
+})
 
 function endGame (){
     ingameUI.textContent = 'GAME OVER!';

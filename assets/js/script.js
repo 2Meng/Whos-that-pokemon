@@ -1,33 +1,30 @@
-// pokemon STATS //
+// DadJokes API // 
+var dadJokesAPI = 'https://icanhazdadjoke.com/';
+var generatedDadJoke = document.getElementById('dad-joke');
+
+// Pokemon API //
+var pokemonApi = 'https://pokeapi.co/api/v2/pokemon/';
+var pokemonName = '';
+
+// In-game UI // 
+var ingameUI = document.getElementById('ingame-ui');
+var actualGame = document.getElementById('game');
+var userHP = document.getElementById('user-health-points');
+var blankWordSpace = document.getElementById('letters-blanks');
+var incorrectLettersEl = document.getElementById('incorrect-letters')
+var playerMessage = document.getElementById('player-message');
+var countdown = document.getElementById('countdown');
+var randomPokemon = document.getElementById('guess-the-pokemon');
+var userScore = document.getElementById('user-score');
+
+// Pokemon HINT/STATS //
+var displayHintBtn = document.getElementById('display-hint');
+var hintMessage = document.getElementById('hint');
 var pokemonStats = document.getElementById('pokemon-stats');
 var pokemonID = document.getElementById('pokemon-id');
 var pokemonHeight = document.getElementById('height');
 var pokemonWeight = document.getElementById('weight');
 var pokemonType = document.getElementById('type');
-
-// in-game UI // 
-var ingameUI = document.getElementById('ingame-ui');
-var actualGame = document.getElementById('game');
-var startGameBtn = document.getElementById('start-game');
-var userHP = document.getElementById('user-health-points');
-var blankWordSpace = document.getElementById('letters-blanks');
-var incorrectLettersEl = document.getElementById('incorrect-letters')
-var playerMessage = document.getElementById('player-message');
-var displayHintBtn = document.getElementById('display-hint');
-var hintMessage = document.getElementById('hint');
-var countdown = document.getElementById('countdown');
-var randomPokemon = document.getElementById('guess-the-pokemon');
-var userScore = document.getElementById('user-score');
-
-// DadJokes API // 
-var dadJokesAPI = 'https://icanhazdadjoke.com/';
-var generatedDadJoke = document.getElementById('dad-joke');
-// var dadJokeButton = document.getElementById('new-joke')
-
-// Pokemon API //
-var pokemonApi = 'https://pokeapi.co/api/v2/pokemon/';
-var pokemonDisplay = document.getElementById('mainGame'); //give a real ID later
-var pokemonName = '';
 
 // Variables for the game //
 var gameBlanks = '';
@@ -35,33 +32,46 @@ var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
 var timerCount = 30;
-var healthPoints = 50;
+var healthPoints;
 var incorrectKeyGuesses = 0;
 var previousGuessedPokemon = [];
 var isLoadingPokemon = false;
 var scoreArray = [];
 
-//
-// Variables from Local Storage //
-var difficulty = localStorage.getItem("difficulty")
-// Displays blanks for the user to guess Pokemon // 
+// Blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
 var incorrectLetters = [];
 
-// userHP.textContent = 'Player HP: ' + healthPoints + 'HP';
+// Variables from Local Storage for difficulty //
+var difficulty = localStorage.getItem("difficulty")
+var selectedDifficulty;
+if (difficulty == 0){
+    healthPoints = 100;
+    // GEN 1 //
+    selectedDifficulty = 151;
+} else if (difficulty == 1){
+    healthPoints = 75;
+    // GEN 1 - 3 //
+    selectedDifficulty = 386;
+} else if (difficulty == 2){
+    healthPoints = 50;
+    // GEN 1 - 5 //
+    selectedDifficulty = 649
+} else if (difficulty == 3){
+    healthPoints = 25;
+    // GEN 1 - 8 //
+    selectedDifficulty = 905
+}
 
-actualGame.style.display = 'none';
-
-startGameBtn.addEventListener('click', function(){
+// Starts game //
+function initGame (){
     loadPokemon()
     handleUserHP()
     clockTimer ()
-    actualGame.style.display = '';
-    startGameBtn.style.display = 'none';
-})
+}
 
-//returns a random number with value 0-x
+// Returns a random number/Pokemon within the number scope set //
 function randomNumGen(x) {
     return Math.floor(Math.random()* x);
 }
@@ -69,15 +79,15 @@ function randomNumGen(x) {
 // Load Data from Pokemon API. Get Sprite, Get type? Get Evolution?
 // currently creates an Image Element and attaches it to an element in the document name tempId
 function loadPokemon() {
-    var pokemonGeneration = randomNumGen(151)
-    fetch(pokemonApi + pokemonGeneration) 
-        // Add a number to the end of this to load a specific pokemon. use random number for random pokemon. 
+    var pokemonGeneration = randomNumGen(selectedDifficulty)
+    randomPokemon.innerHTML = '';
+    isLoadingPokemon = true;
+    fetch(pokemonApi + pokemonGeneration)
 
         .then(function(response)
         {return response.json()})
 
         .then(function(data){
-        // Use this code if we create a new element 
         pokemonName = data.name
         var pokeIMG = document.createElement('img')
         pokeIMG.src = data.sprites.front_default
@@ -157,8 +167,8 @@ function checksLetters(letters){
     }
 };
 
-// Event listener for keys pressed //
-document.addEventListener('keydown', function(event){
+// Event listener for keys presses //
+document.addEventListener('keyup', function(event){
     // Converts the keys pressed to lower case letters //
     var key = event.key.toLowerCase();
     var availableCharacters = 'abcdefghijklmnopqrstuvwxyz123456789-'.split('');
@@ -172,7 +182,7 @@ document.addEventListener('keydown', function(event){
 });
 
 function nextPokemon(){
-    // Resets game elements // 
+    // Resets game elements for next Pokemon // 
     randomPokemon.innerHTML = '';
     blankWordSpace.textContent = '';
     playerMessage.textContent = '';
@@ -180,19 +190,17 @@ function nextPokemon(){
     incorrectLettersEl.textContent = '';
     incorrectLetters = [];
     loadPokemon()
-
-    // Subtracts the number of incorrect key characters pressed //
     handleUserHP()
 }
 
 function handleUserHP(){
+    // Subtracts points from user HP per incorrect key guesses //
     healthPoints -= incorrectKeyGuesses
-    
     userHP.textContent = 'Player HP: ' + healthPoints + 'HP'
-    userHP.style.width = healthPoints + '%';
 
     // Should reset guesses //
     incorrectKeyGuesses = 0
+
     if (healthPoints === 0 || healthPoints < 0){
         endGame()
     }
@@ -218,6 +226,7 @@ function endGame (){
     localStorage.setItem('endscore', scoreArray);
 }
 
+initGame ()
 
 // Runs dad jokes API
 function randomDadJoke(dadJokesAPI){

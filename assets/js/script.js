@@ -41,7 +41,7 @@ var previousGuessedPokemon = [];
 var isLoadingPokemon = false;
 var scoreArray = [];
 
-
+//
 // Variables from Local Storage //
 var difficulty = localStorage.getItem("difficulty")
 // Displays blanks for the user to guess Pokemon // 

@@ -28,24 +28,38 @@
           <span id="type"></span>
       </section>
 
-      <section class="ingame-ui flex flex-col justify-content items-center">
+      <section id="ingame-ui" class="flex flex-col justify-content items-center">
+        
+        <button id="start-game">Start!</button>
+        <!-- GAME SECTION -->
+        <section id="game">
+          <!-- USER HP -->
         <div id="user-health-points" class="p-1.5"></div>
+          <!-- Displays pokemon -->
         <div id="display-pokemon" class="p-1.5">
-          <span id="guess-the-pokemon" class="p-1"></span>
+            <span id="guess-the-pokemon" class="p-1"></span>
         </div>
+          <!-- Game blanks for user to guess -->
         <div class="guess-pokemon p-2">
           <div id="letters-blanks" class="p-2"></div>
-          <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
         </div>
+          <!-- Message to player for correct and incorrect guesses -->
         <div>
           <span id="player-message" class="p-2"></span>
         </div>
-        <button id="display-hint">Need a hint?</button>
-        <span id="hint" class=""></span>
+        <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
+          <!-- Timer -->
         <div>
           <span id="countdown" class=""></span>
         </div>
+          <!-- Hints UI for the user -->
+        <button id="display-hint">Need a hint?</button>
+        <span id="hint" class=""></span>
+        </section>
       </section>
+      
+      <!-- User Score -->
+      <span id="user-score"></span>
 
 
     </main>

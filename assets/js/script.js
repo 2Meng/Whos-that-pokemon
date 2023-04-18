@@ -6,6 +6,9 @@ var pokemonWeight = document.getElementById('weight');
 var pokemonType = document.getElementById('type');
 
 // in-game UI // 
+var ingameUI = document.getElementById('ingame-ui');
+var actualGame = document.getElementById('game');
+var startGameBtn = document.getElementById('start-game');
 var userHP = document.getElementById('user-health-points');
 var blankWordSpace = document.getElementById('letters-blanks');
 var incorrectLettersEl = document.getElementById('incorrect-letters')
@@ -14,6 +17,7 @@ var displayHintBtn = document.getElementById('display-hint');
 var hintMessage = document.getElementById('hint');
 var countdown = document.getElementById('countdown');
 var randomPokemon = document.getElementById('guess-the-pokemon');
+var userScore = document.getElementById('user-score');
 
 // DadJokes API // 
 var dadJokesAPI = 'https://icanhazdadjoke.com/';
@@ -30,17 +34,30 @@ var gameBlanks = '';
 var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
-var timerCount;
+var timerCount = 30;
 var healthPoints = 50;
 var incorrectKeyGuesses = 0;
+var previousGuessedPokemon = [];
+var isLoadingPokemon = false;
+var scoreArray = [];
+
 
 // Displays blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
 var incorrectLetters = [];
 
-userHP.textContent = 'Player HP: ' + healthPoints + 'HP';
+// userHP.textContent = 'Player HP: ' + healthPoints + 'HP';
 
+actualGame.style.display = 'none';
+
+startGameBtn.addEventListener('click', function(){
+    loadPokemon()
+    handleUserHP()
+    clockTimer ()
+    actualGame.style.display = '';
+    startGameBtn.style.display = 'none';
+})
 
 //returns a random number with value 0-x
 function randomNumGen(x) {
@@ -50,31 +67,44 @@ function randomNumGen(x) {
 // Load Data from Pokemon API. Get Sprite, Get type? Get Evolution?
 // currently creates an Image Element and attaches it to an element in the document name tempId
 function loadPokemon() {
-    var pokemonGeneration = randomNumGen(151)
+    if (isLoadingPokemon){
+        // Checks if a request has been made - if so then will not request more than once //
+        return;
+    }
+
+    isLoadingPokemon = true;
+    
+    var pokemonGeneration = randomNumGen(151);
+    while (previousGuessedPokemon.includes(pokemonGeneration) || pokemonGeneration === 0) {
+        pokemonGeneration = randomNumGen(151);
+    }
+    previousGuessedPokemon.push(pokemonGeneration);
+    console.log(previousGuessedPokemon)
+
     fetch(pokemonApi + pokemonGeneration) 
-        //add a number to the end of this to load a specific pokemon. use random number for random pokemon.
+        // Add a number to the end of this to load a specific pokemon. use random number for random pokemon. 
 
         .then(function(response)
         {return response.json()})
 
         .then(function(data){
-        // Use this code if we create a new element
+        // Use this code if we create a new element 
         pokemonName = data.name
         var pokeIMG = document.createElement('img')
         pokeIMG.src = data.sprites.front_default
 
-        // to set color to black and white
-        // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
+        // To set color to black and white
+        pokeIMG.setAttribute('class', 'constrast-200, brightness-0')
         randomPokemon.appendChild(pokeIMG)
-
+        isLoadingPokemon = false;
         
         console.log(data)
         console.log(pokemonName)
-        //console.log(data.location_area_encounters)
         renderBlanks(pokemonName)
-    })
-    .catch(function(error){
+        })
+        .catch(function(error){
         console.log('Error fetching Pokemon data:', error);
+        isLoadingPokemon = false;
     });
 }
 
@@ -111,7 +141,8 @@ function checksLetters(letters){
         if(blankLetters.join('') === gameBlanks){
             playerMessage.textContent = 'Congrats! Its ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '!';
             scoreCounter ++;
-            setTimeout(nextPokemon, 1500);
+            timerCount += 5;
+            setTimeout(nextPokemon, 2000);
         }
 
     } 
@@ -127,12 +158,13 @@ function checksLetters(letters){
 
         if (guessPokemon.length === 10) {
             playerMessage.textContent = 'Oh no! The Pokemons name was.. ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '! Try again!';
+            scoreCounter --;
+            timerCount -= 5;
             setTimeout(nextPokemon, 2000);
         }
 
         // Counts the number of incorrect characters guessed //
         incorrectKeyGuesses = incorrectLetters.length;
-        console.log(incorrectKeyGuesses)
     }
 };
 
@@ -172,12 +204,30 @@ function handleUserHP(){
 
     // Should reset guesses //
     incorrectKeyGuesses = 0
-    if (healthPoints <= 0){
-        playerMessage.textContent = 'GAME OVER'
+    if (healthPoints === 0 || healthPoints < 0){
+        endGame()
     }
 }
 
-loadPokemon()
+function clockTimer (){
+    timer = setInterval(function(){
+        timerCount --
+        countdown.textContent = 'Time left: ' + timerCount;
+
+        if(timerCount === 0) {
+            clearInterval(timer);
+            endGame()
+        }
+    }, 1000);
+}
+
+function endGame (){
+    ingameUI.textContent = 'GAME OVER!';
+    userScore.textContent = 'Your score!: ' + scoreCounter;
+
+    scoreArray.push(scoreCounter)
+    localStorage.setItem('endscore', scoreArray);
+}
 
 
 // Runs dad jokes API

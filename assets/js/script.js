@@ -34,6 +34,8 @@ var timerCount;
 var healthPoints = 50;
 var incorrectKeyGuesses = 0;
 
+// Variables from Local Storage //
+var difficulty = localStorage.getItem("difficulty")
 // Displays blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
@@ -50,7 +52,18 @@ function randomNumGen(x) {
 // Load Data from Pokemon API. Get Sprite, Get type? Get Evolution?
 // currently creates an Image Element and attaches it to an element in the document name tempId
 function loadPokemon() {
-    var pokemonGeneration = randomNumGen(151)
+    if(difficulty == 0){
+        var pokemonGeneration = randomNumGen(151)
+    }
+    if(difficulty == 1){
+        var pokemonGeneration = randomNumGen(386)
+    }
+    if(difficulty == 2){
+        var pokemonGeneration = randomNumGen(649)
+    }
+    if(difficulty == 3){
+        var pokemonGeneration = randomNumGen(905)
+    }
     fetch(pokemonApi + pokemonGeneration) 
         //add a number to the end of this to load a specific pokemon. use random number for random pokemon.
 
@@ -64,7 +77,7 @@ function loadPokemon() {
         pokeIMG.src = data.sprites.front_default
 
         // to set color to black and white
-        // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
+        pokeIMG.setAttribute('class', 'constrast-200, brightness-0')
         randomPokemon.appendChild(pokeIMG)
 
         

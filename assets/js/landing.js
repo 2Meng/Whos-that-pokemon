@@ -1,4 +1,3 @@
-
 var startButton = document.getElementById('startButton')
 var landingTitle = document.getElementById("landing-title")
 var difficultyIMG = document.getElementById("pokeball")
@@ -41,6 +40,18 @@ prevButton.addEventListener('click', function() {
         difficultyValue = imgArray.length-1
     }
     difficultyIMG.setAttribute('src', imgArray[difficultyValue])
+    if(difficultyValue == 0){
+        difficultyDisplay.innerHTML = "Easy Mode: Generation One Only"
+    }
+    if(difficultyValue == 1){
+        difficultyDisplay.innerHTML = "Great Mode: Generations One-Three"
+    }
+    if(difficultyValue == 2){
+        difficultyDisplay.innerHTML = "Ultra Mode: Generations One-Five"
+    }
+    if(difficultyValue == 3){
+        difficultyDisplay.innerHTML = "Master Mode: All Pokemon"
+    }
 })
 
 startButton.addEventListener('click', function () {
@@ -77,7 +88,8 @@ function fetchPokemon() {
                 pokemonScrollDisplay.appendChild(pokeImg)
             })
     }
-}
+} 
+
 
 init()
 window.onload = function() {

@@ -17,7 +17,7 @@
 
   <body class="container w-screen">
     <header class="bg-red-700 text-white text-5xl h-48 w-screen text-center p-16 w-full">
-      <h1 id="mainHeadText">Who's That Pokemon?!</h1>
+      <a href="/landing.html"><h1 id="mainHeadText">Who's That Pokemon?!</h1></a>
     </header>
     
     <main class="game-section">
@@ -28,24 +28,40 @@
           <span id="type"></span>
       </section>
 
-      <section class="ingame-ui flex flex-col justify-content items-center">
-        <div id="user-health-points" class="p-1.5"></div>
+      <section id="ingame-ui" class="flex flex-row place-content-center items-center  w-screen mt-8">
+        
+        <!-- GAME SECTION -->
+        <section id="game">
+          <!-- USER HP -->
+          <div id="health-text"></div>
+          <div id="health-bar">
+            <div id="user-health-points" class="p-1.5"></div>
+          </div>
+          <!-- Displays pokemon -->
         <div id="display-pokemon" class="p-1.5">
-          <span id="guess-the-pokemon" class="p-1"></span>
+            <span id="guess-the-pokemon" class="p-1"></span>
         </div>
+          <!-- Game blanks for user to guess -->
         <div class="guess-pokemon p-2">
           <div id="letters-blanks" class="p-2"></div>
-          <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
         </div>
+          <!-- Message to player for correct and incorrect guesses -->
         <div>
-          <span id="player-message" class="p-2"></span>
+          <span id="player-message" class="p-"></span>
         </div>
-        <button id="display-hint">Need a hint?</button>
-        <span id="hint" class=""></span>
+        <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
+          <!-- Timer -->
         <div>
           <span id="countdown" class=""></span>
         </div>
+          <!-- Hints UI for the user -->
+        <button id="display-hint">Need a hint?</button>
+        <span id="hint" class=""></span>
+        </section>
       </section>
+      
+      <!-- User Score -->
+      <span id="user-score"></span>
 
 
     </main>

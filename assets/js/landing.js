@@ -90,8 +90,26 @@ function fetchPokemon() {
     }
 } 
 
+window.addEventListener('load', function () {
+	function go() {
+		i = i < width ? i + step : 1;
+		m.style.marginLeft = -i + 'px';
+	}
+	var i = 0,
+		step = 3,
+		space = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	var m = document.getElementById('scroll');
+	var t = m.innerHTML;
+	m.innerHTML = t + space;
+	m.style.position = 'absolute';
+	var width = (m.clientWidth + 1);
+	m.style.position = '';
+	m.innerHTML = t + space + t + space + t + space + t + space + t + space + t + space + t + space;
+	m.addEventListener('mouseleave', function () {
+		step = 3;
+	}, true);
+	var x = setInterval(go, 50);
+}, true);
 
-init()
-window.onload = function() {
+init();
 fetchPokemon();
-}

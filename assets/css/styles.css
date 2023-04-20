@@ -5,7 +5,6 @@ h1 {
     transition: all 1s ease-in;
 }
 
-
 .movement {
     opacity: 1;
     transform: translateY(0px);

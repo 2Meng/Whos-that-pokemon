@@ -2,5 +2,4 @@ body{
     background-image: url(../photos/pokemon-test.png);
     /* background-image: url("assets\photos\pokemon-test.png"); */
     background-repeat: no-repeat;
-    background-size: cover;
 }

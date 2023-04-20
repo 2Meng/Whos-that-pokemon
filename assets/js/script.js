@@ -93,6 +93,17 @@ function loadPokemon() {
         pokemonName = data.name
         var pokeIMG = document.createElement('img')
         pokeIMG.src = data.sprites.front_default
+        // diplay stats
+        pokemonID = document.createElement("li")
+        pokemonHeight = document.createElement("li")
+        pokemonWeight = document.createElement("li")
+        pokemonType = document.createElement("li")
+        pokemonStats.textContent = "POKÉMON STATS"
+        pokemonID.textContent = "ID: " + data.id
+        pokemonHeight.textContent = "HEIGHT: " + data.height
+        pokemonWeight.textContent = "WEIGHT: " + data.weight
+        pokemonType.textContent = "TYPE: " + data.types[0].type.name
+        pokemonStats.append(pokemonID, pokemonHeight, pokemonWeight, pokemonType)
 
         // to set color to black and white
         // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)

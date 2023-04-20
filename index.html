@@ -21,20 +21,20 @@
   </header>
 
   <!--STATS AREA-->
-  <main class="w-screen game-section grid grid-cols-3 border-4 border-black">
-    <ul id="pokemon-stats" class="">
+  <main class="w-screen game-section grid grid-cols-3 ">
+    <ul id="pokemon-stats" class="border-8 border-gray-500">
       <span id="pokemon-id"></span>
       <span id="height"></span>
       <span id="weight"></span>
       <span id="type"></span>
     </ul>
 
-    <section id="ingame-ui" class="flex place-content-center items-center border-4 border-black mt-8">
+    <section id="ingame-ui" class="flex place-content-center">
 
       <!-- GAME SECTION -->
-      <section id="game">
+      <section id="game" class="flex flex-col items-center border-8 border-gray-500">
         <!-- USER HP -->
-        <div id="health-text"></div>
+        <div id="health-text" class="mt-8"></div>
         <div id="health-bar">
           <div id="user-health-points" class="p-1.5"></div>
         </div>
@@ -47,7 +47,7 @@
           <div id="letters-blanks" class="p-2"></div>
         </div>
         <!-- Message to player for correct and incorrect guesses -->
-        <div id="container flex place-content-center">
+        <div id="container mt-8 flex place-content-center">
           <span id="player-message" class="p-"></span>
         </div>
         <p class="p-1">Incorrect letters:
@@ -65,7 +65,7 @@
     </section>
 
     <!-- Score and DAD JOKE AREA-->
-    <span id="user-score"></span>
+    <span id="user-score" class="border-8 border-gray-500"></span>
 
   </main>
   <script src="./assets/js/script.js"></script>

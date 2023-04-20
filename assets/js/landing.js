@@ -2,6 +2,7 @@ var startButton = document.getElementById('startButton')
 var landingTitle = document.getElementById("landing-title")
 var difficultyIMG = document.getElementById("pokeball")
 var difficultyDisplay = document.getElementById('difficulty-display')
+
 // Modal Stuff //
 var modalButton = document.getElementById('modal-btn')
 var pokeModal = document.getElementById('poke-modal')

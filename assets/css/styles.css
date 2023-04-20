@@ -45,3 +45,12 @@ h1 {
     transition: width .5s linear;
   }
 
+  .background-img {
+  background-image: url("/assets/photos/guess-background.webp");
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 200px;
+  height:200px;
+  background-position: center top 15px;
+  }
+

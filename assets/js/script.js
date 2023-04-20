@@ -37,6 +37,7 @@ var healthPoints;
 var incorrectKeyGuesses = 0;
 var previousGuessedPokemon = [];
 var isLoadingPokemon = false;
+var pokemonHasBeenGuessed = false;
 var scoreArray = [];
 
 // Blanks for the user to guess Pokemon // 
@@ -142,6 +143,7 @@ function checksLetters(letters){
             playerMessage.textContent = 'Congrats! Its ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '!';
             scoreCounter ++;
             timerCount += 5;
+            pokemonHasBeenGuessed = true;
             setTimeout(nextPokemon, 2000);
         }
 
@@ -162,7 +164,6 @@ function checksLetters(letters){
             timerCount -= 5;
             setTimeout(nextPokemon, 2000);
         }
-
         // Counts the number of incorrect characters guessed //
         incorrectKeyGuesses = incorrectLetters.length;
     }
@@ -177,6 +178,9 @@ document.addEventListener('keyup', function(event){
     // If statement for letters pushed //
 
     if(availableCharacters.includes(key)){
+        if(pokemonHasBeenGuessed){
+            return;
+        }
         var pressedLetter = event.key;
         checksLetters(pressedLetter)
     }
@@ -190,6 +194,7 @@ function nextPokemon(){
     guessPokemon = [];
     incorrectLettersEl.textContent = '';
     incorrectLetters = [];
+    pokemonHasBeenGuessed = false;
     loadPokemon()
     handleUserHP()
 }

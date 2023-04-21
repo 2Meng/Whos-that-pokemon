@@ -13,18 +13,43 @@
     />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/pokemonbg.css">
 </head>
 <body class="max-w-screen">
-    <header class="bg-red-700 text-white text-5xl h-48 text-center p-12">
-        <h1 id="landing-title" class="custom-landing text center">Who's That Pokemon!?</h1>
-    </header>  
-    <div class="flex flex-col items-center w-screen mt-8">
-        <input type="image" id="pokeball" src="./assets/photos/pokeball-16848.png">
+    <header class="bg-red-700 text-white text-5xl h-48 text-center p-10">
+        <h1 id="landing-title" class="custom-landing">Who's That Pokemon!?</h1>
+        <button id="modal-btn">How to Play!</button>
+    </header> 
+    <main class="flex flex-row place-content-center items-center  w-screen mt-8">
+        
+        <div id="poke-modal" class="modal">
+            <div class="modal-content">
+            <span class="close">X</span>
+            <p>Use your keyboard to enter the letters of the name of the presented pokemon!<br>Don't forget the "-"! like in ~Mr-Mime~ </p>
+            </div>
+        </div>
+
+        <button id="prev-button" class="bg-red-700 text-white font-medium rounded-l-xl border-black border-4 h-12 w-36 ">previous</button>
+        <div class="pr-4 pl-4">
+            <input type="image" id="pokeball" src="" class="h-64 w-64"></input>
+        </div>
+        <button id="next-button" class="bg-red-700 text-white font-medium rounded-r-lg border-black border-4 h-12 w-36">next</button>
+    </main>
+    <div class="flex items-center place-content-center">
+        <div id="difficulty-display" class=""></div>
     </div>
     <div class="flex flex-col items-center w-screen mt-8">
         <button class="bg-red-700 text-white font-medium rounded-full border-black border-4 w-32 custom-landing" id="startButton">PLAY NOW</button>
     </div>
-    <marquee behavior="scroll" direction="left" id="scroll" class="flex mt-8"></marquee>
+
+    <div id="scroll" class="flex mt-6 overflow-hidden"></div>
+
+    <footer class="flex w-screen justify-center">
+        <div class="rainbows w-128">
+            <p class="text-center">~Now With Dad Jokes!~</p>
+            <p class="text-center">Don't Forget The -!!</p>
+        </div>
+    </footer>
     <script src="assets/js/landing.js"></script>
 </body>
 </html>

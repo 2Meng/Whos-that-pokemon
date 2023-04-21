@@ -52,6 +52,9 @@ https://www.freepnglogos.com/images/pokeball-16848.html
 Marquee:
 https://way2tutorial.com/html/html_marquee_image.php
 
+Because Marquee is not even just deprecated, it is no longer supported......
+https://stackoverflow.com/questions/337330/javascript-marquee-to-replace-marquee-tags/26372490#26372490
+
 
 
 ## License

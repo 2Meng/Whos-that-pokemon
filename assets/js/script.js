@@ -1,47 +1,79 @@
-// pokemon STATS //
-var pokemonStats = document.getElementById("pokemon-stats");
-var pokemonID = document.getElementById("pokemon-id");
-var pokemonHeight = document.getElementById("height");
-var pokemonWeight = document.getElementById("weight");
-var pokemonType = document.getElementById("type");
-
-// in-game UI //
-var userHP = document.getElementById("user-health-points");
-var blankWordSpace = document.getElementById("letters-blanks");
-var incorrectLettersEl = document.getElementById("incorrect-letters");
-var playerMessage = document.getElementById("player-message");
-var displayHintBtn = document.getElementById("display-hint");
-var hintMessage = document.getElementById("hint");
-var countdown = document.getElementById("countdown");
-var randomPokemon = document.getElementById("guess-the-pokemon");
-
-// DadJokes API //
-var dadJokesAPI = "https://icanhazdadjoke.com/";
-var generatedDadJoke = document.getElementById("dad-joke");
-// var dadJokeButton = document.getElementById('new-joke')
+// DadJokes API // 
+var dadJokesAPI = 'https://icanhazdadjoke.com/';
+var generatedDadJoke = document.getElementById('dad-joke');
 
 // Pokemon API //
-var pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
-var pokemonDisplay = document.getElementById("mainGame"); //give a real ID later
-var pokemonName = "";
+var pokemonApi = 'https://pokeapi.co/api/v2/pokemon/';
+var pokemonName = '';
+
+// In-game UI // 
+var ingameUI = document.getElementById('ingame-ui');
+var actualGame = document.getElementById('game');
+var userHP = document.getElementById('user-health-points');
+var healthText = document.getElementById('health-text');
+var blankWordSpace = document.getElementById('letters-blanks');
+var incorrectLettersEl = document.getElementById('incorrect-letters')
+var playerMessage = document.getElementById('player-message');
+var countdown = document.getElementById('countdown');
+var randomPokemon = document.getElementById('guess-the-pokemon');
+var userScore = document.getElementById('user-score');
+
+// Pokemon HINT/STATS //
+var displayHintBtn = document.getElementById('display-hint');
+var hintMessage = document.getElementById('hint');
+var pokemonStats = document.getElementById('pokemon-stats');
+var pokemonID = document.getElementById('pokemon-id');
+var pokemonHeight = document.getElementById('height');
+var pokemonWeight = document.getElementById('weight');
+var pokemonType = document.getElementById('type');
 
 // Variables for the game //
 var gameBlanks = "";
 var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
-var timerCount;
-var healthPoints = 50;
+var timerCount = 999999;
+var healthPoints;
 var incorrectKeyGuesses = 0;
+var previousGuessedPokemon = [];
+var isLoadingPokemon = false;
+var pokemonHasBeenGuessed = false;
+var scoreArray = [];
 
-// Displays blanks for the user to guess Pokemon //
+// Blanks for the user to guess Pokemon // 
 var blankLetters = [];
 var guessPokemon = [];
 var incorrectLetters = [];
 
-userHP.textContent = "Player HP: " + healthPoints + "HP";
+// Variables from Local Storage for difficulty //
+var difficulty = localStorage.getItem("difficulty")
+var selectedDifficulty;
+if (difficulty == 0){
+    healthPoints = 100;
+    // GEN 1 //
+    selectedDifficulty = 151;
+} else if (difficulty == 1){
+    healthPoints = 75;
+    // GEN 1 - 3 //
+    selectedDifficulty = 386;
+} else if (difficulty == 2){
+    healthPoints = 50;
+    // GEN 1 - 5 //
+    selectedDifficulty = 649
+} else if (difficulty == 3){
+    healthPoints = 25;
+    // GEN 1 - 8 //
+    selectedDifficulty = 905
+}
 
-//returns a random number with value 0-x
+// Starts game //
+function initGame (){
+    loadPokemon()
+    handleUserHP()
+    clockTimer ()
+}
+
+// Returns a random number/Pokemon within the number scope set //
 function randomNumGen(x) {
   return Math.floor(Math.random() * x);
 }
@@ -49,31 +81,43 @@ function randomNumGen(x) {
 // Load Data from Pokemon API. Get Sprite, Get type? Get Evolution?
 // currently creates an Image Element and attaches it to an element in the document name tempId
 function loadPokemon() {
-  var pokemonGeneration = randomNumGen(151);
-  fetch(pokemonApi + pokemonGeneration)
-    //add a number to the end of this to load a specific pokemon. use random number for random pokemon.
+    var pokemonGeneration = randomNumGen(selectedDifficulty)
+    randomPokemon.innerHTML = '';
+    isLoadingPokemon = true;
+    fetch(pokemonApi + pokemonGeneration)
 
     .then(function (response) {
       return response.json();
     })
 
-    .then(function (data) {
-      // Use this code if we create a new element
-      pokemonName = data.name;
-      var pokeIMG = document.createElement("img");
-      pokeIMG.src = data.sprites.front_default;
+        .then(function(data){
+        pokemonName = data.name
+        var pokeIMG = document.createElement('img')
+        pokeIMG.src = data.sprites.front_default
+        // diplay stats
+        pokemonID = document.createElement("li")
+        pokemonHeight = document.createElement("li")
+        pokemonWeight = document.createElement("li")
+        pokemonType = document.createElement("li")
+        pokemonStats.textContent = "POKÉMON STATS"
+        pokemonID.textContent = "ID: " + data.id
+        pokemonHeight.textContent = "HEIGHT: " + data.height
+        pokemonWeight.textContent = "WEIGHT: " + data.weight
+        pokemonType.textContent = "TYPE: " + data.types[0].type.name
+        pokemonStats.append(pokemonID, pokemonHeight, pokemonWeight, pokemonType)
 
-      // to set color to black and white
-      // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
-      randomPokemon.appendChild(pokeIMG);
-
-      console.log(data);
-      console.log(pokemonName);
-      //console.log(data.location_area_encounters)
-      renderBlanks(pokemonName);
-    })
-    .catch(function (error) {
-      console.log("Error fetching Pokemon data:", error);
+        // to set color to black and white
+        // pokeIMG.setAttribute('class', 'constrast-200, brightness-0)
+        randomPokemon.appendChild(pokeIMG)
+        isLoadingPokemon = false;
+        
+        console.log(data)
+        console.log(pokemonName)
+        renderBlanks(pokemonName)
+        })
+        .catch(function(error){
+        console.log('Error fetching Pokemon data:', error);
+        isLoadingPokemon = false;
     });
 }
 
@@ -107,84 +151,107 @@ function checksLetters(letters) {
     }
     blankWordSpace.textContent = blankLetters.join(" ");
 
-    if (blankLetters.join("") === gameBlanks) {
-      playerMessage.textContent =
-        "Congrats! Its " +
-        pokemonName.charAt(0).toUpperCase() +
-        pokemonName.slice(1) +
-        "!";
-      scoreCounter++;
-      setTimeout(nextPokemon, 1500);
-    }
-  }
-  if (!letterInWord) {
-    guessPokemon.push(letters);
-    incorrectLetters.push(letters);
-    playerMessage.textContent =
-      "Oops! Looks like that letter isnt in the Pokemons name! Try Again!";
-    incorrectLettersEl.textContent = incorrectLetters.join(", ");
+        if(blankLetters.join('') === gameBlanks){
+            playerMessage.textContent = 'Congrats! Its ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '!';
+            scoreCounter ++;
+            timerCount += 5;
+            pokemonHasBeenGuessed = true;
+            setTimeout(nextPokemon, 2000);
+        }
+
+    } 
+    if (!letterInWord) {
+        guessPokemon.push(letters);
+        incorrectLetters.push(letters);
+        playerMessage.textContent = 'Oops! Looks like that letter isnt in the Pokemons name! Try Again!';
+        incorrectLettersEl.textContent = incorrectLetters.join(', ');
 
     setTimeout(function () {
       playerMessage.textContent = "";
     }, 1250);
 
-    if (guessPokemon.length === 10) {
-      playerMessage.textContent =
-        "Oh no! The Pokemons name was.. " +
-        pokemonName.charAt(0).toUpperCase() +
-        pokemonName.slice(1) +
-        "! Try again!";
-      setTimeout(nextPokemon, 2000);
+        if (guessPokemon.length === 10) {
+            playerMessage.textContent = 'Oh no! The Pokemons name was.. ' + pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1) + '! Try again!';
+            scoreCounter --;
+            timerCount -= 5;
+            setTimeout(nextPokemon, 2000);
+        }
+        // Counts the number of incorrect characters guessed //
+        incorrectKeyGuesses = incorrectLetters.length;
     }
+};
 
-    // Counts the number of incorrect characters guessed //
-    incorrectKeyGuesses = incorrectLetters.length;
-    console.log(incorrectKeyGuesses);
-  }
-}
+// Event listener for keys presses //
+document.addEventListener('keyup', function(event){
+    // Converts the keys pressed to lower case letters //
+    var key = event.key.toLowerCase();
+    var availableCharacters = 'abcdefghijklmnopqrstuvwxyz123456789-'.split('');
+    
+    // If statement for letters pushed //
 
-// Event listener for keys pressed //
-document.addEventListener("keydown", function (event) {
-  // Converts the keys pressed to lower case letters //
-  var key = event.key.toLowerCase();
-  var availableCharacters = "abcdefghijklmnopqrstuvwxyz123456789-".split("");
-
-  // If statement for letters pushed //
-
-  if (availableCharacters.includes(key)) {
-    var pressedLetter = event.key;
-    checksLetters(pressedLetter);
-  }
+    if(availableCharacters.includes(key)){
+        if(pokemonHasBeenGuessed){
+            return;
+        }
+        var pressedLetter = event.key;
+        checksLetters(pressedLetter)
+    }
 });
 
-function nextPokemon() {
-  // Resets game elements //
-  randomPokemon.innerHTML = "";
-  blankWordSpace.textContent = "";
-  playerMessage.textContent = "";
-  guessPokemon = [];
-  incorrectLettersEl.textContent = "";
-  incorrectLetters = [];
-  loadPokemon();
-
-  // Subtracts the number of incorrect key characters pressed //
-  handleUserHP();
+function nextPokemon(){
+    // Resets game elements for next Pokemon // 
+    randomPokemon.innerHTML = '';
+    blankWordSpace.textContent = '';
+    playerMessage.textContent = '';
+    guessPokemon = [];
+    incorrectLettersEl.textContent = '';
+    incorrectLetters = [];
+    pokemonHasBeenGuessed = false;
+    loadPokemon()
+    handleUserHP()
 }
 
-function handleUserHP() {
-  healthPoints -= incorrectKeyGuesses;
+function handleUserHP(){
+    // Subtracts points from user HP per incorrect key guesses //
+    healthPoints -= incorrectKeyGuesses
+    var maxHealth = 100;
+    var healthPercentage = Math.max(0, healthPoints) / maxHealth
+    healthText.textContent = 'Player HP: ' + healthPoints + 'HP'
+    userHP.style.width = (healthPercentage * 100) + '%';
 
-  userHP.textContent = "Player HP: " + healthPoints + "HP";
-  userHP.style.width = healthPoints + "%";
+    // Should reset guesses //
+    incorrectKeyGuesses = 0
 
-  // Should reset guesses //
-  incorrectKeyGuesses = 0;
-  if (healthPoints <= 0) {
-    playerMessage.textContent = "GAME OVER";
-  }
+    if (healthPoints === 0 || healthPoints < 0){
+        endGame()
+    }
 }
 
-loadPokemon();
+function clockTimer (){
+    timer = setInterval(function(){
+        timerCount --
+        countdown.textContent = 'Time left: ' + timerCount;
+
+        if(timerCount === 0) {
+            clearInterval(timer);
+            endGame()
+        }
+    }, 1000);
+}
+
+displayHintBtn.addEventListener('click', function (){
+
+})
+
+function endGame (){
+    ingameUI.textContent = 'GAME OVER!';
+    userScore.textContent = 'Your score!: ' + scoreCounter;
+
+    scoreArray.push(scoreCounter)
+    localStorage.setItem('endscore', scoreArray);
+}
+
+initGame ()
 
 // Runs dad jokes API
 function randomDadJoke(dadJokesAPI) {

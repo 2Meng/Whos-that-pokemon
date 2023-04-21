@@ -1,56 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Play: Who's that Pokémon?!</title>
+  <head>
+    <meta name="view" content="width=device-width,initial-scale=1.0" />
+    <title>Who's that Pokémon!?</title>
+    <!-- specific fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
+    <!-- tailwind style sheet-->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
-    <link rel="stylesheet" type="text/css" href="./assets/css/pokemonbg.css">
-</head>
-<body class="max-w-screen">
-    <header class="bg-red-700 text-white text-5xl h-48 text-center p-10">
-        <h1 id="landing-title" class="custom-landing">Who's That Pokemon!?</h1>
-        <button id="modal-btn">How to Play!</button>
-    </header> 
-    <main class="flex flex-row place-content-center items-center  w-screen mt-8">
-        
-        <div id="modal" class="modal">
-            <div class="modal-content">
-            <span class="close">X</span>
-            <p>Use your keyboard to enter the letters of the name of the presented pokemon!<br>Don't forget the "-"! like in ~Mr-Mime~ </p>
-            </div>
-        </div>
+  </head>
 
-        <button id="prev-button" class="bg-red-700 text-white font-medium rounded-l-xl border-black border-4 h-12 w-36 ">previous</button>
-        <div class="pr-4 pl-4">
-            <input type="image" id="pokeball" src="" class="h-64 w-64"></input>
+  <body class="container w-screen">
+    <header class="bg-red-700 text-white text-5xl h-48 w-screen text-center p-16 w-full">
+      <a href="/landing.html"><h1 id="mainHeadText">Who's That Pokemon?!</h1></a>
+    </header>
+    
+    <main class="game-section">
+      <section id="pokemon-stats">
+          <span id="pokemon-id"></span>
+          <span id="height"></span>
+          <span id="weight"></span>
+          <span id="type"></span>
+      </section>
+
+    <section id="ingame-ui" class="flex place-content-center border-4 border-black mt-8">
+
+      <!-- GAME SECTION -->
+      <section id="game">
+        <!-- USER HP -->
+        <div id="health-text"></div>
+        <div id="health-bar">
+          <div id="user-health-points" class="p-1.5"></div>
         </div>
-        <button id="next-button" class="bg-red-700 text-white font-medium rounded-r-lg border-black border-4 h-12 w-36">next</button>
+        <!-- Displays pokemon -->
+        <div id="display-pokemon" class="p-1.5">
+          <span id="guess-the-pokemon" class="p-1"></span>
+        </div>
+          <!-- Game blanks for user to guess -->
+        <div class="guess-pokemon p-2">
+          <div id="letters-blanks" class="p-2"></div>
+        </div>
+        <!-- Message to player for correct and incorrect guesses -->
+        <div>
+          <span id="player-message" class="p-"></span>
+        </div>
+        <p class="p-1">Incorrect letters: <div id="incorrect-letters"></div> </p>
+          <!-- Timer -->
+        <div>
+          <span id="countdown" class=""></span>
+        </div>
+          <!-- Hints UI for the user -->
+        <button id="display-hint">Need a hint?</button>
+        <span id="hint" class=""></span>
+        </section>
+      </section>
+      
+      <!-- User Score -->
+      <span id="user-score"></span>
+
+
     </main>
-    <div class="flex items-center place-content-center">
-        <div id="difficulty-display" class=""></div>
-    </div>
-    <div class="flex flex-col items-center w-screen mt-8">
-        <button class="bg-red-700 text-white font-medium rounded-full border-black border-4 w-32 custom-landing" id="startButton">PLAY NOW</button>
-    </div>
-
-    <div id="scroll" class="flex mt-6 overflow-hidden"></div>
-
-    <footer class="flex w-screen justify-center">
-        <div class="rainbows w-128">
-            <p class="text-center">~Now With Dad Jokes!~</p>
-            <p class="text-center">Don't Forget The -!!</p>
-        </div>
-    </footer>
-    hi
-    <script src="assets/js/landing.js"></script>
-</body>
+    <script src="./assets/js/script.js"></script>
+  </body>
 </html>

@@ -161,6 +161,12 @@ function checksLetters(letters) {
         pokemonName.charAt(0).toUpperCase() +
         pokemonName.slice(1) +
         "!";
+      if (healthPoints < 100) {
+        healthPoints += 5;
+      }
+      if (healthPoints > 100) {
+        healthPoints = 100;
+      }
       scoreCounter++;
       timerCount += 5;
       pokemonHasBeenGuessed = true;

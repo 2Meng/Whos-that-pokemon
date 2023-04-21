@@ -143,7 +143,7 @@ footer {
 }
 
 .background-img {
-  background-image: url("/assets/photos/guess-background.webp");
+  background-image: url("/assets/photos/guess-background.png");
   background-size: contain;
   background-repeat: no-repeat;
   width: 200px;

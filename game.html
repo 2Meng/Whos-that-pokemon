@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="view" content="width=device-width,initial-scale=1.0" />
+  <title>Who's that Pokémon!?</title>
+  <!-- specific fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+  <!-- tailwind style sheet-->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
+</head>
+
+<body class="container w-screen">
+  <header class="bg-red-700 text-white text-5xl h-48 w-screen text-center p-16 w-full">
+    <a href="/index.html">
+      <h1 id="mainHeadText">Who's That Pokemon?!</h1>
+    </a>
+  </header>
+
+  <!--STATS AREA-->
+  <main class="w-screen game-section grid grid-cols-3 ">
+    <ul id="pokemon-stats" class="border-8 border-gray-500">
+     
+    </ul>
+
+    <section id="ingame-ui" class="flex place-content-center">
+
+      <!-- GAME SECTION -->
+      <section id="game" class="flex flex-col items-center border-8 border-gray-500">
+        <!-- USER HP -->
+        <div id="health-text" class="mt-8"></div>
+        <div id="health-bar">
+          <div id="user-health-points" class="p-1.5"></div>
+        </div>
+        <!-- Displays pokemon -->
+        <div id="display-pokemon" class="p-1.5 background-img">
+          <span id="guess-the-pokemon" class="p-1"></span>
+        </div>
+        <!-- Game blanks for user to guess -->
+        <div class="guess-pokemon p-2">
+          <div id="letters-blanks" class="p-2"></div>
+        </div>
+        <!-- Message to player for correct and incorrect guesses -->
+        <div id="container mt-8 flex place-content-center">
+          <span id="player-message" class="p-"></span>
+        </div>
+        <p class="p-1">Incorrect letters:
+        <div id="incorrect-letters"></div>
+        </p>
+        <!-- Timer -->
+        <div>
+          <span id="countdown" class=""></span>
+        </div>
+        <!-- Hints UI for the user -->
+        <button id="display-hint">Need a hint?</button>
+        <span id="hint" class=""></span>
+        
+      </section>
+    </section>
+
+    <!-- Score and DAD JOKE AREA-->
+    <span id="user-score" class="border-8 border-gray-500"></span>
+
+      <!-- dad jokes modal-->
+<div id="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p id="jokes"> </p> 
+  </div>
+</div>
+  </main>
+  <script src="./assets/js/script.js"></script>
+</body>
+
+</html>

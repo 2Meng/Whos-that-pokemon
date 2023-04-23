@@ -97,7 +97,7 @@ function loadPokemon() {
     .then(function (data) {
       pokemonName = data.name;
       var pokeIMG = document.createElement("img");
-      pokeIMG.setAttribute("class", 'w-48 h-48')
+      pokeIMG.setAttribute("class", 'w-48 h-48 m-36 -ml-1 z-10')
       pokeIMG.src = data.sprites.front_default;
       // diplay stats
       pokemonID = document.createElement("li");
@@ -279,6 +279,14 @@ function randomDadJoke() {
     })
     .then(function (data) {
       jokes.textContent = data.joke;
+      pokemonStats.textContent = "Play again?"
+      pokemonID.textContent = "";
+      pokemonHeight.textContent = "";
+      pokemonWeight.textContent = "";
+      pokemonType.textContent = "";
+      pokemonStats.addEventListener("click", function () {
+        location.assign("./game.html");
+      });
     });
 }
 function endGame() {

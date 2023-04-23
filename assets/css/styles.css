@@ -141,14 +141,3 @@ footer {
   position: relative;
   transition: width 0.5s linear;
 }
-
-.background-img {
-  background-image: url("/assets/photos/guess-background.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 200px;
-  height: 200px;
-  background-position: center top 15px;
-}
-
-

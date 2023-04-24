@@ -37,7 +37,7 @@ var gameBlanks = "";
 var numberOfBlanks = 0;
 var scoreCounter = 0;
 var timer;
-var timerCount = 999999;
+var timerCount = 60;
 var healthPoints;
 var incorrectKeyGuesses = 0;
 var previousGuessedPokemon = [];

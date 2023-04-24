@@ -21,11 +21,11 @@
   </header>
 
   <!--STATS AREA-->
-  <main class="w-screen game-section grid grid-cols-3 ">
-    <ul id="pokemon-stats" class="border-8 border-gray-500">
-     
-    </ul>
-
+  <main class="w-screen game-section grid grid-cols-3 bg-slate-200">
+    <div class="border-8 border-gray-500 grid grid-cols-1 content-between">
+      <ul id="pokemon-stats" class=""></ul>
+      <img class="scale-50 place-self-end" src="./assets/photos/Trainer.png" alt="Trainer">
+    </div>
     <section id="ingame-ui" class="flex place-content-center">
 
       <!-- GAME SECTION -->
@@ -37,43 +37,44 @@
         </div>
         <!-- Displays pokemon -->
         <div id="display-pokemon" class="w-full p-1.5">
-          <div id="guess-the-pokemon" class="w-full items-center p-1 bg-contain bg-center bg-no-repeat" style="background-image: url(./assets/photos/guess-background.png);">
+          <div id="guess-the-pokemon" class="w-full items-center p-1 bg-contain bg-center bg-no-repeat"
+            style="background-image: url(./assets/photos/guess-background.png);">
           </div>
         </div>
-        <!-- Game blanks for user to guess -->
-        <div class="guess-pokemon p-2">
-          <div id="letters-blanks" class="p-2"></div>
-        </div>
-        <!-- Message to player for correct and incorrect guesses -->
-        <div id="container mt-8 flex place-content-center">
-          <span id="player-message" class="p-"></span>
-        </div>
-        <p class="p-1">Incorrect letters:
-        <div id="incorrect-letters"></div>
-        </p>
-        <!-- Timer -->
-        <div>
-          <span id="countdown" class=""></span>
-        </div>
-        <!-- Hints UI for the user -->
-        <button id="display-hint">Need a hint?</button>
-        <span id="hint" class=""></span>
-        
+
       </section>
     </section>
 
-    <!-- Score Area-->
+    <!-- Score and Guess Area-->
     <span id="user-score" class="border-8 border-gray-500">
-      <img class="h-50 w-50" src="./assets/photos/prof-oak.png" alt="Professor-Oak"> 
+      <img class="h-40 w-40 place-self-end" src="./assets/photos/prof-oak.png" alt="Professor-Oak">
+      <!-- Game blanks for user to guess -->
+      <div class="guess-pokemon p-2 mt-8">
+        <div id="letters-blanks" class="p-2"></div>
+      </div>
+      <!-- Message to player for correct and incorrect guesses -->
+      <div id="mt-8">
+        <span id="player-message" class="p-1"></span>
+      </div>
+      <p class="p-1 mt-8">Incorrect letters:
+      <div id="incorrect-letters"></div>
+      </p>
+      <!-- Timer -->
+      <div>
+        <span id="countdown" class=""></span>
+      </div>
+      <!-- Hints UI for the user, NOW HIDDEN -->
+      <button id="display-hint"></button>
+      <span id="hint" class=""></span>
     </span>
 
-      <!-- dad jokes modal-->
-<div id="modal">
-  <div class="modal-content">
-    <span class="close">&times;</span>
-    <p id="jokes"> </p> 
-  </div>
-</div>
+    <!-- dad jokes modal-->
+    <div id="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="jokes"> </p>
+      </div>
+    </div>
   </main>
   <script src="./assets/js/script.js"></script>
 </body>

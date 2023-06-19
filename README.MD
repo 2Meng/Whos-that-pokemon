@@ -1,4 +1,4 @@
-# <Pokémon-Game>
+# Who's That Pokémon?!
 
 ## Description
 
@@ -8,34 +8,32 @@
 
 - This quiz helps to solve the problem of pokémon illiteracy. It also uses third party APIs so that we do not have to locally store the large amount of data that makes up Pokémon lore and stats. 
 
-TO DO:
+- Creating this game required us to learn how we could use JavaScript to dynamically alter the page. We needed to identify document elements and create logic to determine how they should behave in a given situation. We learned how to use open-source CSS frameworks to make styling easy. Finally, we learned how to access and manipulate needed information out of the vast amount supplied by our chosen APIs. 
 
-- What did you learn?
 
-## Table of Contents (Optional)
-
-If your README is long, add a table of contents to make it easy for users to find what they need.
+## Table of Contents
 
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
+- [Features](#features)
 
 
 ## Usage
 
-Provide instructions and examples for use. Include screenshots as needed.
-
-TO DO: 
+No installation is necessary; simply visit https://2meng.github.io/Whos-that-pokemon/
 
 
-    ![alt text](assets/images/screenshot.png)
+PHOTOS:
+
+![Landing Page](assets/photos/landingPage.png)
+![Other difficulty modes](assets/photos/otherModes.png)
+![How to play display](assets/photos/howToPlay.png)
+![In-game view](assets/photos/inGame.png)
+![End of game shot with Dad-joke](assets/photos/dadJoke-endGame.png)
 
 
-## Credits
-
-TO DO:
-
-List your collaborators, if any, with links to their GitHub profiles. If you used any third-party assets that require attribution, list the creators with links to their primary web presence in this section. If you followed tutorials, include links to those here as well.
+## Credits/Resources
 
 Poké API:
 https://pokeapi.co/
@@ -56,12 +54,11 @@ Because Marquee is not even just deprecated, it is no longer supported......
 https://stackoverflow.com/questions/337330/javascript-marquee-to-replace-marquee-tags/26372490#26372490
 
 
-
 ## License
 
 MIT License
 
-Copyright (c) [2023] [Adam Robinson, Andrew Nalley, Julissa Ortiz, Toumeng Yang]
+Copyright (c) 2023 Adam Robinson, Andrew Nalley, Julissa Ortiz, Toumeng Yang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -84,12 +81,6 @@ SOFTWARE.
 
 ## Features
 
-TO DO:
-
-If your project has a lot of features, list them here.
-
-## Tests
-
-TO DO?
-
-Go the extra mile and write tests for your application. Then provide examples on how to run them here.
+Tailwind CSS
+API usage: Poke API and icanhazdadjoke API
+Local Storage
